@@ -52,7 +52,7 @@ END
 $func$ LANGUAGE plpgsql;
 
 
-INSERT INTO "OrleansQuery" ("QueryKey", "QueryText")
+INSERT INTO orleansquery (querykey, querytext)
 VALUES
 (
     'UpdateIAmAlivetimeKey',
@@ -66,7 +66,7 @@ VALUES
         @IAmAliveTime
     );'
 )
-ON CONFLICT ("QueryKey") DO UPDATE SET "QueryText"=excluded."QueryText";
+ON CONFLICT (querykey) DO UPDATE SET querytext=excluded.querytext;
 
 
 CREATE OR REPLACE FUNCTION orleans.insert_membership_version(
@@ -98,7 +98,7 @@ END
 $func$ LANGUAGE plpgsql;
 
 
-INSERT INTO "OrleansQuery" ("QueryKey", "QueryText")
+INSERT INTO orleansquery (querykey, querytext)
 VALUES
 (
     'InsertMembershipVersionKey',
@@ -106,7 +106,7 @@ VALUES
         @DeploymentId
     );'
 )
-ON CONFLICT ("QueryKey") DO UPDATE SET "QueryText"=excluded."QueryText";
+ON CONFLICT (querykey) DO UPDATE SET querytext=excluded.querytext;
 
 
 CREATE OR REPLACE FUNCTION orleans.insert_membership(
@@ -179,7 +179,7 @@ END
 $func$ LANGUAGE plpgsql;
 
 
-INSERT INTO "OrleansQuery" ("QueryKey", "QueryText")
+INSERT INTO orleansquery (querykey, querytext)
 VALUES
 (
     'InsertMembershipKey',
@@ -197,7 +197,7 @@ VALUES
         @Version
     );'
 )
-ON CONFLICT ("QueryKey") DO UPDATE SET "QueryText"=excluded."QueryText";
+ON CONFLICT (querykey) DO UPDATE SET querytext=excluded.querytext;
 
 
 CREATE OR REPLACE FUNCTION orleans.update_membership(
@@ -255,7 +255,7 @@ END
 $func$ LANGUAGE plpgsql;
 
 
-INSERT INTO "OrleansQuery" ("QueryKey", "QueryText")
+INSERT INTO orleansquery (querykey, querytext)
 VALUES
 (
     'UpdateMembershipKey',
@@ -270,10 +270,10 @@ VALUES
         @Version
     );'
 )
-ON CONFLICT ("QueryKey") DO UPDATE SET "QueryText"=excluded."QueryText";
+ON CONFLICT (querykey) DO UPDATE SET querytext=excluded.querytext;
 
 
-INSERT INTO "OrleansQuery" ("QueryKey", "QueryText")
+INSERT INTO orleansquery (querykey, querytext)
 VALUES
 (
     'MembershipReadRowKey',
@@ -300,10 +300,10 @@ VALUES
     WHERE
         v.deployment_id = @DeploymentId AND @DeploymentId IS NOT NULL;'
 )
-ON CONFLICT ("QueryKey") DO UPDATE SET "QueryText"=excluded."QueryText";
+ON CONFLICT (querykey) DO UPDATE SET querytext=excluded.querytext;
 
 
-INSERT INTO "OrleansQuery" ("QueryKey", "QueryText")
+INSERT INTO orleansquery (querykey, querytext)
 VALUES
 (
     'MembershipReadAllKey',
@@ -326,10 +326,10 @@ VALUES
     WHERE
         v.deployment_id = @DeploymentId AND @DeploymentId IS NOT NULL;'
 )
-ON CONFLICT ("QueryKey") DO UPDATE SET "QueryText"=excluded."QueryText";
+ON CONFLICT (querykey) DO UPDATE SET querytext=excluded.querytext;
 
 
-INSERT INTO "OrleansQuery" ("QueryKey", "QueryText")
+INSERT INTO orleansquery (querykey, querytext)
 VALUES
 (
     'DeleteMembershipTableEntriesKey',
@@ -338,10 +338,10 @@ VALUES
     DELETE FROM orleans.membership_version
     WHERE deployment_id = @DeploymentId AND @DeploymentId IS NOT NULL;'
 )
-ON CONFLICT ("QueryKey") DO UPDATE SET "QueryText"=excluded."QueryText";
+ON CONFLICT (querykey) DO UPDATE SET querytext=excluded.querytext;
 
 
-INSERT INTO "OrleansQuery" ("QueryKey", "QueryText")
+INSERT INTO orleansquery (querykey, querytext)
 VALUES
 (
     'GatewaysQueryKey',
@@ -356,4 +356,4 @@ VALUES
         AND status = @Status AND @Status IS NOT NULL
         AND proxy_port > 0;'
 )
-ON CONFLICT ("QueryKey") DO UPDATE SET "QueryText"=excluded."QueryText";
+ON CONFLICT (querykey) DO UPDATE SET querytext=excluded.querytext;

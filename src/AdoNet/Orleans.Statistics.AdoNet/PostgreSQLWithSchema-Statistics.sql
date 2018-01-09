@@ -119,7 +119,7 @@ END
 $func$ LANGUAGE plpgsql;
 
 
-INSERT INTO "OrleansQuery" ("QueryKey", "QueryText")
+INSERT INTO orleansquery (querykey, querytext)
 VALUES
 (
     'UpsertReportClientMetricsKey',
@@ -137,7 +137,7 @@ VALUES
         @ConnectedGatewayCount
     );'
 )
-ON CONFLICT ("QueryKey") DO UPDATE SET "QueryText"=excluded."QueryText";
+ON CONFLICT (querykey) DO UPDATE SET querytext=excluded.querytext;
 
 
 CREATE OR REPLACE FUNCTION orleans.upsert_silo_metrics(
@@ -230,7 +230,7 @@ END
 $func$ LANGUAGE plpgsql;
 
 
-INSERT INTO "OrleansQuery" ("QueryKey", "QueryText")
+INSERT INTO orleansquery (querykey, querytext)
 VALUES
 (
     'UpsertSiloMetricsKey',
@@ -256,10 +256,10 @@ VALUES
         @ClientCount
     );'
 )
-ON CONFLICT ("QueryKey") DO UPDATE SET "QueryText"=excluded."QueryText";
+ON CONFLICT (querykey) DO UPDATE SET querytext=excluded.querytext;
 
 
-INSERT INTO "OrleansQuery" ("QueryKey", "QueryText")
+INSERT INTO orleansquery (querykey, querytext)
 VALUES
 (
     'InsertOrleansStatisticsKey',
@@ -284,4 +284,4 @@ VALUES
         @Statistic;
     COMMIT;'
 )
-ON CONFLICT ("QueryKey") DO UPDATE SET "QueryText"=excluded."QueryText";
+ON CONFLICT (querykey) DO UPDATE SET querytext=excluded.querytext;

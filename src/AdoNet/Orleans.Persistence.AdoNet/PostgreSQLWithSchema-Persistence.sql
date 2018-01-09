@@ -159,7 +159,7 @@ END
 $func$ LANGUAGE plpgsql;
 
 
-INSERT INTO "OrleansQuery" ("QueryKey", "QueryText")
+INSERT INTO orleansquery (querykey, querytext)
 VALUES
 (
     'WriteToStorageKey',
@@ -177,10 +177,10 @@ VALUES
         CAST(@PayloadXml AS xml)
     );'
 )
-ON CONFLICT ("QueryKey") DO UPDATE SET "QueryText"=excluded."QueryText";
+ON CONFLICT (querykey) DO UPDATE SET querytext=excluded.querytext;
 
 
-INSERT INTO "OrleansQuery" ("QueryKey", "QueryText")
+INSERT INTO orleansquery (querykey, querytext)
 VALUES
 (
     'ReadFromStorageKey',
@@ -209,10 +209,10 @@ VALUES
         )
         AND service_id = @ServiceId AND @ServiceId IS NOT NULL;'
 )
-ON CONFLICT ("QueryKey") DO UPDATE SET "QueryText"=excluded."QueryText";
+ON CONFLICT (querykey) DO UPDATE SET querytext=excluded.querytext;
 
 
-INSERT INTO "OrleansQuery" ("QueryKey", "QueryText")
+INSERT INTO orleansquery (querykey, querytext)
 VALUES
 (
     'ClearStorageKey',
@@ -241,4 +241,4 @@ VALUES
         AND version IS NOT NULL AND version = @GrainStateVersion AND @GrainStateVersion IS NOT NULL
     RETURNING version;
 ')
-ON CONFLICT ("QueryKey") DO UPDATE SET "QueryText"=excluded."QueryText";
+ON CONFLICT (querykey) DO UPDATE SET querytext=excluded.querytext;

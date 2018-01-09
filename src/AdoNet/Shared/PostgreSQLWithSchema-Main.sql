@@ -32,13 +32,15 @@ Implementation notes:
 -- This table defines Orleans operational queries. Orleans uses these to manage its operations,
 -- these are the only queries Orleans issues to the database.
 -- These can be redefined (e.g. to provide non-destructive updates) provided the stated interface principles hold.
--- Since this is the entry point for Orleans, it must reside in the public schema and be called exactly OrleansQuery.
-CREATE TABLE IF NOT EXISTS "OrleansQuery"
+-- Since this is the entry point for Orleans, it must reside in the public schema and be called exactly orleansquery.
+-- PostgreSQL folds unquoted identifiers to lowercase unless they are quoted, so the unquoted query in GetQueriesKey
+-- means that the table needs to be created using lowercase names.
+CREATE TABLE IF NOT EXISTS orleansquery
 (
-    "QueryKey" character varying(64) NOT NULL,
-    "QueryText" text NOT NULL,
+    querykey character varying(64) NOT NULL,
+    querytext text NOT NULL,
 
-    CONSTRAINT "OrleansQuery_Key" PRIMARY KEY ("QueryKey")
+    CONSTRAINT "OrleansQuery_Key" PRIMARY KEY (querykey)
 );
 
 

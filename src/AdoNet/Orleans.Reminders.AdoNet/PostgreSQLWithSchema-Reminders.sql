@@ -58,7 +58,7 @@ END
 $func$ LANGUAGE plpgsql;
 
 
-INSERT INTO "OrleansQuery" ("QueryKey", "QueryText")
+INSERT INTO orleansquery (querykey, querytext)
 VALUES
 (
     'UpsertReminderRowKey',
@@ -71,10 +71,10 @@ VALUES
         @GrainHash
     );'
 )
-ON CONFLICT ("QueryKey") DO UPDATE SET "QueryText"=excluded."QueryText";
+ON CONFLICT (querykey) DO UPDATE SET querytext=excluded.querytext;
 
 
-INSERT INTO "OrleansQuery" ("QueryKey", "QueryText")
+INSERT INTO orleansquery (querykey, querytext)
 VALUES
 (
     'ReadReminderRowsKey',
@@ -89,10 +89,10 @@ VALUES
         service_id = @ServiceId AND @ServiceId IS NOT NULL
         AND grain_id = @GrainId AND @GrainId IS NOT NULL;'
 )
-ON CONFLICT ("QueryKey") DO UPDATE SET "QueryText"=excluded."QueryText";
+ON CONFLICT (querykey) DO UPDATE SET querytext=excluded.querytext;
 
 
-INSERT INTO "OrleansQuery" ("QueryKey", "QueryText")
+INSERT INTO orleansquery (querykey, querytext)
 VALUES
 (
     'ReadReminderRowKey',
@@ -108,10 +108,10 @@ VALUES
         AND grain_id = @GrainId AND @GrainId IS NOT NULL
         AND reminder_name = @ReminderName AND @ReminderName IS NOT NULL;'
 )
-ON CONFLICT ("QueryKey") DO UPDATE SET "QueryText"=excluded."QueryText";
+ON CONFLICT (querykey) DO UPDATE SET querytext=excluded.querytext;
 
 
-INSERT INTO "OrleansQuery" ("QueryKey", "QueryText")
+INSERT INTO orleansquery (querykey, querytext)
 VALUES
 (
     'ReadRangeRows1Key',
@@ -127,10 +127,10 @@ VALUES
         AND grain_hash > @BeginHash AND @BeginHash IS NOT NULL
         AND grain_hash <= @EndHash AND @EndHash IS NOT NULL;'
 )
-ON CONFLICT ("QueryKey") DO UPDATE SET "QueryText"=excluded."QueryText";
+ON CONFLICT (querykey) DO UPDATE SET querytext=excluded.querytext;
 
 
-INSERT INTO "OrleansQuery" ("QueryKey", "QueryText")
+INSERT INTO orleansquery (querykey, querytext)
 VALUES
 (
     'ReadRangeRows2Key',
@@ -146,7 +146,7 @@ VALUES
         AND ((grain_hash > @BeginHash AND @BeginHash IS NOT NULL)
         OR (grain_hash <= @EndHash AND @EndHash IS NOT NULL));'
 )
-ON CONFLICT ("QueryKey") DO UPDATE SET "QueryText"=excluded."QueryText";
+ON CONFLICT (querykey) DO UPDATE SET querytext=excluded.querytext;
 
 
 CREATE OR REPLACE FUNCTION orleans.delete_reminder_row(
@@ -174,7 +174,7 @@ END
 $func$ LANGUAGE plpgsql;
 
 
-INSERT INTO "OrleansQuery" ("QueryKey", "QueryText")
+INSERT INTO orleansquery (querykey, querytext)
 VALUES
 (
     'DeleteReminderRowKey',
@@ -186,10 +186,10 @@ VALUES
         @Version
     );'
 )
-ON CONFLICT ("QueryKey") DO UPDATE SET "QueryText"=excluded."QueryText";
+ON CONFLICT (querykey) DO UPDATE SET querytext=excluded.querytext;
 
 
-INSERT INTO "OrleansQuery" ("QueryKey", "QueryText")
+INSERT INTO orleansquery (querykey, querytext)
 VALUES
 (
     'DeleteReminderRowsKey',
@@ -197,4 +197,4 @@ VALUES
     WHERE
         service_id = @ServiceId AND @ServiceId IS NOT NULL;'
 )
-ON CONFLICT ("QueryKey") DO UPDATE SET "QueryText"=excluded."QueryText";
+ON CONFLICT (querykey) DO UPDATE SET querytext=excluded.querytext;
