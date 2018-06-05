@@ -95,7 +95,7 @@ BEGIN
     -- to ensure only on INSERT succeeds.
     IF _grain_state_version IS NULL
     THEN
-        INSERT INTO storage
+        INSERT INTO orleans.storage
         (
             grain_id_hash,
             grain_id_n0,
@@ -127,7 +127,7 @@ BEGIN
          (
             -- There should not be any version of this grain state.
             SELECT 1
-            FROM storage
+            FROM orleans.storage
             WHERE
                 grain_id_hash = _grain_id_hash AND _grain_id_hash IS NOT NULL
                 AND grain_type_hash = _grain_type_hash AND _grain_type_hash IS NOT NULL
